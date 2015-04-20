@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Kafka presentation by Ranganathan B for GIDS, Data</title>
+    
+    <meta name="description" content="Kafka presentation by Ranganathan B for GIDS, Data" />
+    <meta name="author" content="Ranganathan B" />
+
+    <link href="http://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/font-awesome-animation.min.css">
+    <link href="css/kafka.css" rel="stylesheet"/>
+</head>
+
+<body class="impress-not-supported">
+
+<div class="fallback-message">
+    <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+    <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
+</div>
+
+<div id="impress">
+
+    <div class="step slide" data-x="-1000" data-y="-1500">
+        <q>Apache Kafka + Zookeeper = 3.5 Million Writes Per Second <i>by Design</i></q>
+        <br/>
+        <span class="footnote">"Ranganathan Balashanmugam, ThoughtWorks"</span>
+        <div id="fade-note">Use <i class="fa fa-arrows fa-2x"></i>  to navigate</div>
+    </div>
+
+    <div id="story" class="step" data-x="0" data-y="500" data-scale="4">
+        <span class="try try-img white-text">have you seen this?</span>
+        <img src="images/DOS_pause.png"/><br/>
+        <span class="footnote footnote-img gray-text"><sup>*</sup> use right, left, up, bottom <i class="fa fa-arrows fa-1x"></i> keys</span>
+    </div>
+
+    <div class="step white-text" data-x="1000" data-y="3000" data-z="-100" data-rotate-x="-90" data-rotate-y="10" data-scale="2">
+        <span class="step-title step-title-without-slide"><i class="fa fa-user fa-2x"></i> About Me</span>
+        <ul>
+            <li>10 years &lt;dev/&gt;</li>
+            <li>Working for ThoughtWorks</li>
+            <li>Big data technologies maniac</li>
+            <li>Had two startups before</li>
+        </ul>
+    </div>
+
+    <div class="step white-text" data-x="0" data-y="4500" data-scale="4" data-z="-100">
+        <span class="step-title step-title-without-slide"><i class="fa fa-list fa-1x"></i> Agenda</span>
+        <ul>
+            <li>Problems that led to Kafka development</li>
+            <li>Lots of Kafka</li>
+            <li>A simple application</li>
+        </ul>
+    </div>
+
+    <div id="s2" class="step slide" data-x="1000" data-y="-1500">
+        <span class="step-title"><i class="fa fa-code fa-2x"></i> Trends of Coding</span>
+        <img src="images/CodingTrends.png"/><br/>
+        <span class="source-link">source: http://eil.stanford.edu/publications/david_liu/david_dissertation.pdf</span>
+    </div>
+
+    <div class="step slide" data-x="2500" data-y="-1500">
+        <span class="step-title"><i class="fa fa-lightbulb-o fa-2x"></i>An Analytics Application Idea</span>
+        <p>Let us start by writing an analytics application that can provide </p>
+        <br/>
+        <ul>
+            <li>last one hour trends</li>
+            <li>product sentiments</li>
+        </ul>
+    </div>
+
+    <div class="step slide" data-x="4000" data-y="-1500">
+        <span class="step-title"><i class="fa fa-twitter-square fa-2x"></i> Start with twitter</span>
+        <br/>
+        <br/>
+        <p style="text-align:center;"><i class="fa fa-twitter fa-5x i-right-space"></i> <i class="fa fa-refresh fa-spin fa-3x i-right-space"></i> <i class="fa fa-save fa-5x"></i></p>
+        <br/>
+        <p class="footnote">Direct consumption of twitter stream into DB</p>
+    </div>
+
+    <div class="step slide" data-x="5500" data-y="-1500">
+        <span class="step-title"><i class="fa fa-facebook fa-2x"></i> Let us include facebook</span>
+        <br/>
+        <br/>
+        <p style="text-align:center;"><i class="fa fa-twitter fa-5x i-right-space"></i> <i class="fa fa-facebook fa-5x i-right-space"></i> <i class="fa fa-refresh fa-spin fa-3x i-right-space"></i> <i class="fa fa-save fa-5x"></i></p>
+        <br/>
+        <p class="footnote">What would happen if we add more input streams and more consumption streams?</p>
+    </div>
+
+    <div class="step white-text" data-x="7000" data-y="2100" data-rotate="180" data-scale="6">
+        <span class="step-title step-title-without-slide"><i class="fa fa-linkedin-square fa-2x"></i>  The Kafka story</span>
+        <span class="footnote">what made linkedin build Kafka</span>
+    </div>
+
+    <div class="step slide" data-x="7000" data-y="-1500">
+        <span class="step-title">The problem linkedIn faced (~2009)</span>
+        <img src="images/linked-in-pre.png" class="img-max-width"/><br/><br/>
+        <p style="text-align:center;">How can you <i>reliably</i> transfer data between systems?</p>
+        <span class="source-link">source: http://blog.confluent.io/2015/02/25/stream-data-platform-1/</span>
+    </div>
+
+    <div class="step slide" data-x="8500" data-y="-1500">
+        <span class="step-title">Proposed solution - LinkedIn</span>
+        <img src="images/linked-in-proposal.png" class="img-max-width"/>
+        <span class="source-link">source: http://blog.confluent.io/2015/02/25/stream-data-platform-1/</span>
+    </div>
+
+    <div class="step slide" data-x="10000" data-y="-1500">
+        <span class="step-title">Kafka based solution - LinkedIn</span>
+        <img src="images/linked-in-kafka.png" class="img-max-width" style="position:relative"/>
+        <h1 class="img-overlap-text">Stream centric</h1>
+        <span class="source-link">source: http://blog.confluent.io/2015/02/25/stream-data-platform-1/</span>
+    </div>
+
+    <div class="step slide" data-x="11500" data-y="-1500">
+        <img src="images/kafka.png" class="img-max-width" style="max-width:10em"/>
+        <br/>
+        <ul>
+            <li>publish-subscribe messaging service</li>
+            <li><b>distributed</b> commit/write-ahead log</li>
+            <li>decouples data pipelines</li>
+            <li>per partition ordered</li>
+        </ul>
+        <br/><br/>
+        <h3><i>producers produce, consumers consume, in large distributed reliable way</i></h3>
+    </div>
+
+    <div class="step slide" data-x="13000" data-y="-1500">
+        <span class="step-title">Why Kafka?</span>
+        <img src="images/Queues.png" class="img-max-width"/>
+    </div>
+
+    <div class="step slide" data-x="14500" data-y="-1500">
+        <span class="step-title">Kafka characteristics</span>
+        <ul>
+            <li>fast O(1)<br/>
+                <span class="tab">high throughput - <span class="red-text">3.25 million</span> writes per second</span>
+            </li>
+            <li>scalable - (300+ brokers at LinkedIn)</li>
+            <li>durable</li>
+            <li>distributed</li>
+            <li>replicated (fault - tolerance)</li>
+        </ul>
+    </div>
+
+    <div class="step slide" data-x="16000" data-y="-1500">
+        <span class="step-title"><i class="fa fa-trophy fa-2x"></i> Why Kafka?</span>
+        <ul>
+            <li>For <i>highly distributed</i> messages, Kafka stands out.</li>
+            <li><b><i>Mechanical sympathy</i></b></li>
+            <li>Consumer messages are <i>ordered</i> per partition.</li>
+            <li>Good number of language <i>api support</i> and integration apis.</li>
+            <li>Fast reads (efficient use of page cache)  and fast writes (efficient transfer from page cache to network sockets - zero copy optimization)</li>
+        </ul>
+    </div>
+
+    <div class="step slide" data-x="17500" data-y="-1500">
+        <span class="step-title"><i class="fa fa-paste fa-2x"></i> Zero Copy</span>
+        <img src="images/without-zero-copy.png" style="max-width:40%"/><i class="fa fa-arrow-right fa-3x i-between-images" style="position:relative;top:-100px"></i><img src="images/with-zero-copy.png" style="max-width:40%"/>
+        <span class="source-link">source: https://www.ibm.com/developerworks/linux/library/j-zerocopy/</span>
+    </div>
+
+    <div class="step slide" data-x="19000" data-y="-1500">
+        <span class="step-title">Timeline</span>
+        <ul>
+            <li>Originally developed at Linked <i class="fa fa-linkedin-square"></i></li>
+            <li>Open sourced in 2011, as version 0.6</li>
+            <li>Graduated from Apache - Oct 2012</li>
+            <li>Written in Scala</li>
+            <li>Latest stable - 0.8.2.1 (as of 24th, April 2015)</li>
+        </ul>
+    </div>
+
+    <div class="step slide" data-x="21500" data-y="-1500">
+        <span class="step-title">Messaging terminology</span>
+        <ul>
+            <li>Data is called <b><i>message</i></b> <i class="fa fa-envelope fa-1x"></i></li>
+            <li><b><i>Producers</i></b> publish messages.</li>
+            <li>Messages are stored in <b><i>topics</i></b>.</li>
+            <li>Each Kafka server in a cluster is called <b><i>Broker</i></b>.</li>
+            <li>Topics are <b><i>partitioned</i></b> and <b><i>replicated</i></b> into Brokers.</li>
+            <li><b><i>Consumers</i></b> consume messages from brokers..</li>
+        </ul>
+        <img src="images/simple-kafka-cluster.png" class="simple-cluster"/>
+    </div>
+
+    <div class="step slide" data-x="23000" data-y="-1500">
+        <span class="step-title">Topics</span>
+        <div class="div-center">
+            <i class="fa fa-envelope fa-3x faa-passing animated"></i>
+            <img src="images/Topic.png" style="max-width:60%;margin-top:20px;"/>
+            <i class="fa fa-trash fa-3x faa-tada animated"></i>
+        </div>
+        <br/>
+        <br/>
+        <p>Remove messages based on :</p>
+        <ul>
+            <li><b><i>number of messages:</i></b> log.flush.interval</li>
+            <li><b><i>time:</i></b> log.default.flush.interval.ms,topic.flush.intervals.ms</li>
+            <li><b><i>size:</i></b> log.retention.size</li>
+        </ul>
+    </div>
+
+    <div class="step slide" data-x="24500" data-y="-1500">
+        <span class="step-title">Partition</span>
+        <div class="div-center">
+            <i class="fa fa-envelope fa-2x faa-passing animated partition-icon"></i>
+            <img src="images/Partition.png" style="max-width:60%;"/>
+            <i class="fa fa-trash fa-2x partition-icon"></i>
+        </div>
+        <br/>
+        <ul>
+            <li>Ordered, immutable sequence of messages</li>
+            <li>Each message is assigned unique offset</li>
+            <li>Serves: Horizontal scaling, Parallel consumer reads (with consumption by partition based order)</li>
+            <li><b><i>default:</i></b> or <i>custom</i></b></li>
+        </ul>
+    </div>
+
+    <div class="step slide" data-x="26000" data-y="-1500">
+        <span class="step-title">Producers - <i>push</i></span>
+        <ul>
+            <li>batching</li>
+            <li>compression</li>
+            <li>sync(Ack), <b><i>async</i></b> (auto batch - say 60k or 10ms)</li>
+            <li>sequential writes - guaranteed order per partition</li>
+        </ul>
+    </div>
+
+    <div class="step slide" data-x="27500" data-y="-1500">
+        <span class="step-title">Consumers - <i>pull</i></span>
+        <ul>
+            <li>Queue of consumers (consumer group)</li>
+            <li>Position based on offset, controlled by consumer and persisted at intervals into topic - <i>__consumer_offsets</i></li>
+            <li>can rewind offset</li>
+            <li>Guaranteed order per partition</li>
+            <li>More partitions enables better parallel reads</li>
+        </ul>
+    </div>
+
+    <div class="step slide" data-x="29000" data-y="-1500">
+        <span class="step-title">Distribution & Replication</span>
+        <br/>
+        <h2>Replication=3, Partition=2</h2>
+        <br/>
+        <br/>
+        <img src="images/distributed-replicated.png" class="img-max-width"/>
+        <span class="source-link">source: https://engineering.linkedin.com/kafka/intra-cluster-replication-apache-kafka</span>
+    </div>
+
+    <div class="step slide" data-x="31500" data-y="-1500">
+        <span class="step-title">Message delivery guarantees</span>
+        <ul>
+            <li><b><i>At most once:</i></b> Read -> Save position ->Process</li>
+            <li><b><i>At least once:</i></b> Read -> Process -> Save position</li>
+            <li><b><i>Exactly once:</i></b> Write output and position at same place</li>
+        </ul>
+        <br/>
+        <span class="step-title">With Kafka:</span>
+        <ul>
+            <li><b><i>At least once:</i></b> Default</li>
+            <li><b><i>At most once:</i></b> Disable Producer retries and save offset before processing</li>
+            <li><b><i>Exactly once:</i></b> Use offset to store at destination system</li>
+        </ul>
+    </div>
+
+    <div class="step slide" data-x="33000" data-y="-1500">
+        <span class="step-title">Usecases</span>
+        <ul>
+            <li>Messaging (comparable with ActiveMQ, RabbitMQ)</li>
+            <li>Website activity tracking</li>
+            <li>Operational monitoring</li>
+            <li>Log Aggregation</li>
+            <li>Stream processing (along with Storm/Samza)</li>
+            <li><a href="http://martinfowler.com/eaaDev/EventSourcing.html">Event sourcing</a></li>
+            <li>Commit log (comparable with BookKeeper)</li>
+        </ul>
+    </div>
+
+    <div id="one-more-thing" class="step white-text" data-x="6000" data-y="4000" data-scale="2">
+        <p>one more thing...</p>
+    </div>
+
+    <div id="its-in-3d" class="step white-text" data-x="6200" data-y="4300" data-z="-100" data-rotate-x="-40" data-rotate-y="10" data-scale="2">
+        <p><span class="have">our</span> <span class="you">application</span> <span class="noticed">Architecture</span> <span class="its">and</span> <span class="in">demo</span></p>
+    </div>
+
+    <div class="step white-text" data-x="6500" data-y="5000" data-scale="2">
+        <span class="step-title step-title-without-slide">Thank you...</span>
+    </div>
+
+
+    <div id="end-slide" class="step" data-x="3000" data-y="1500" data-scale="10">
+    </div>
+
+</div>
+
+<script src="js/impress.js"></script>
+<script>
+(function() {
+    impress().init();
+})();
+</script>
+</body>
+</html>
