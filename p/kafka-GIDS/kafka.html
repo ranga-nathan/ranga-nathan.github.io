@@ -25,7 +25,7 @@
 <div id="impress">
 
     <div class="step slide" data-x="-1000" data-y="-1500">
-        <q>Apache Kafka + Zookeeper = 3.5 Million Writes Per Second <i>by Design</i></q>
+        <q>Apache Kafka + Zookeeper = <strike class="red-text">3.5</strike> 4.4 Million Writes Per Second <i>by Design</i></q>
         <br/>
         <span class="footnote">"Ranganathan Balashanmugam, ThoughtWorks"</span>
         <br/>
@@ -124,11 +124,9 @@
         <ul>
             <li>publish-subscribe messaging service</li>
             <li><b>distributed</b> commit/write-ahead log</li>
-            <li>decouples data pipelines</li>
-            <li>per partition ordered</li>
         </ul>
         <br/><br/>
-        <h3><i>producers produce, consumers consume, in large distributed reliable way</i></h3>
+        <h3><i>producers produce, consumers consume, in large distributed reliable way -- <b><i>realtime</i></b></i></h3>
     </div>
 
     <div class="step slide" data-x="13000" data-y="-1500">
@@ -151,9 +149,9 @@
         <span class="step-title">Kafka characteristics</span>
         <ul>
             <li>fast O(1)<br/>
-                <span class="tab">high throughput - <span class="red-text">3.25 million</span> writes per second</span>
+                <span class="tab">high throughput - <span class="red-text">4.4 million</span> writes per second</span>
             </li>
-            <li>scalable - (300+ brokers at LinkedIn)</li>
+            <li>scalable - (350+ brokers at LinkedIn)</li>
             <li>durable</li>
             <li>distributed</li>
             <li>replicated (fault - tolerance)</li>
