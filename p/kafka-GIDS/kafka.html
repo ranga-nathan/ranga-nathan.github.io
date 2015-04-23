@@ -131,11 +131,22 @@
     </div>
 
     <div class="step slide" data-x="13000" data-y="-1500">
+        <span class="step-title">Timeline</span>
+        <ul>
+            <li>Originally developed at Linked <i class="fa fa-linkedin-square"></i></li>
+            <li>Open sourced in 2011, as version 0.6</li>
+            <li>Graduated from Apache - Oct 2012</li>
+            <li>Written in Scala</li>
+            <li>Latest stable - 0.8.2.1 (as of 24th, April 2015)</li>
+        </ul>
+    </div>
+
+    <div class="step slide" data-x="14500" data-y="-1500">
         <span class="step-title">Why Kafka?</span>
         <img src="images/Queues.png" class="img-max-width"/>
     </div>
 
-    <div class="step slide" data-x="14500" data-y="-1500">
+    <div class="step slide" data-x="16000" data-y="-1500">
         <span class="step-title">Kafka characteristics</span>
         <ul>
             <li>fast O(1)<br/>
@@ -148,7 +159,7 @@
         </ul>
     </div>
 
-    <div class="step slide" data-x="16000" data-y="-1500">
+    <div class="step slide" data-x="17500" data-y="-1500">
         <span class="step-title"><i class="fa fa-trophy fa-2x"></i> Why Kafka?</span>
         <ul>
             <li>For <b><i>highly distributed</i></b> messages, Kafka stands out.</li>
@@ -158,24 +169,36 @@
         </ul>
     </div>
 
-    <div class="step slide" data-x="17500" data-y="-1500">
+    <div class="step slide" data-x="19000" data-y="-1500">
         <span class="step-title"><i class="fa fa-paste fa-2x"></i> Zero Copy</span>
         <img src="images/without-zero-copy.png" style="max-width:40%"/><i class="fa fa-arrow-right fa-3x i-between-images" style="position:relative;top:-100px"></i><img src="images/with-zero-copy.png" style="max-width:40%"/>
         <span class="source-link">source: https://www.ibm.com/developerworks/linux/library/j-zerocopy/</span>
     </div>
 
-    <div class="step slide" data-x="19000" data-y="-1500">
-        <span class="step-title">Timeline</span>
+    <div class="step slide" data-x="21500" data-y="-1500">
+        <span class="step-title">Kafka at Linked <i class="fa fa-linkedin-square"></i> <span style="font-size:0.5em">(as of Nov, 2014)</span></span>
         <ul>
-            <li>Originally developed at Linked <i class="fa fa-linkedin-square"></i></li>
-            <li>Open sourced in 2011, as version 0.6</li>
-            <li>Graduated from Apache - Oct 2012</li>
-            <li>Written in Scala</li>
-            <li>Latest stable - 0.8.2.1 (as of 24th, April 2015)</li>
+            <li>350+ commodity machines</li>
+            <li>8,000+ topics</li>
+            <li>140,000+ partitions</li>
         </ul>
+        <hr/>
+        <ul>
+            <li><span class="red-text"><b><i>278 Billion messages/day</i></b></span></li>
+            <li>49 TB/day in</li>
+            <li>176 TB/day out</li>
+        </ul>
+        <hr/>
+        <h2>Peak Load</h2>
+        <ul>
+            <li><span class="red-text"><b><i>4.4 Million messages/second</i></b></span></li>
+            <li>6 Gigabits/sec Inbound</li>
+            <li>21 Gigabits/sec Outbound</li>
+        </ul>
+        <span class="source-link">source: https://speakerdeck.com/ept/kafka-and-samza-distributed-stream-processing-in-practice</span>
     </div>
 
-    <div class="step slide" data-x="21500" data-y="-1500">
+    <div class="step slide" data-x="23000" data-y="-1500">
         <span class="step-title">Messaging terminology</span>
         <ul>
             <li>Data is called <b><i>message</i></b> <i class="fa fa-envelope fa-1x"></i></li>
@@ -188,7 +211,7 @@
         <img src="images/simple-kafka-cluster.png" class="simple-cluster"/>
     </div>
 
-    <div class="step slide" data-x="23000" data-y="-1500">
+    <div class="step slide" data-x="24500" data-y="-1500">
         <span class="step-title">Topics</span>
         <div class="div-center">
             <i class="fa fa-envelope fa-3x faa-passing animated"></i>
@@ -205,7 +228,7 @@
         </ul>
     </div>
 
-    <div class="step slide" data-x="24500" data-y="-1500">
+    <div class="step slide" data-x="26000" data-y="-1500">
         <span class="step-title">Partition</span>
         <div class="div-center">
             <i class="fa fa-envelope fa-2x faa-passing animated partition-icon"></i>
@@ -221,7 +244,7 @@
         </ul>
     </div>
 
-    <div class="step slide" data-x="26000" data-y="-1500">
+    <div class="step slide" data-x="27500" data-y="-1500">
         <span class="step-title">Producers - <i>push</i></span>
         <ul>
             <li>batching</li>
@@ -232,7 +255,7 @@
         </ul>
     </div>
 
-    <div class="step slide" data-x="27500" data-y="-1500">
+    <div class="step slide" data-x="29000" data-y="-1500">
         <span class="step-title">Consumers - <i>pull</i></span>
         <ul>
             <li>Queue of consumers (consumer group)</li>
@@ -243,7 +266,7 @@
         </ul>
     </div>
 
-    <div class="step slide" data-x="29000" data-y="-1500">
+    <div class="step slide" data-x="31500" data-y="-1500">
         <span class="step-title">Distribution & Replication</span>
         <br/>
         <h2>Replication=3, Partition=2</h2>
@@ -253,7 +276,7 @@
         <span class="source-link">source: https://engineering.linkedin.com/kafka/intra-cluster-replication-apache-kafka</span>
     </div>
 
-    <div class="step slide" data-x="31500" data-y="-1500">
+    <div class="step slide" data-x="33000" data-y="-1500">
         <span class="step-title">Message delivery guarantees</span>
         <ul>
             <li><b><i>At most once:</i></b> Read -> Save position ->Process</li>
