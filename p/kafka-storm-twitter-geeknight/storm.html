@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Kafka, Storm, Twitter presentation by Ranganathan B for GeekNight,Hyderabad</title>
+
+    <meta name="description" content="Kafka, Storm, Twitter presentation by Ranganathan B for GeekNight,Hyderabad" />
+    <meta name="author" content="Ranganathan B" />
+
+    <link href="http://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../common/css/font-awesome-animation.min.css">
+    <link href="css/storm.css" rel="stylesheet"/>
+</head>
+
+<body class="impress-not-supported">
+
+<div class="fallback-message">
+    <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+    <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
+</div>
+
+<div id="impress">
+
+    <div class="step slide" data-x="-2500" data-y="-1500">
+        <q>Reliable Real-time Streaming and Analytics with 'Apache Kafka + ApacheStorm'</q>
+        <br/>
+        <br/><br/>
+        <span class="footnote">"Ran.ga.na.than Balashanmugam, ThoughtWorks"</span>
+        <div id="fade-note">Use <i class="fa fa-arrows fa-2x"></i>  to navigate</div>
+    </div>
+
+    <div class="step white-text" data-x="1000" data-y="3000" data-z="-100" data-rotate-x="-90" data-rotate-y="10" data-scale="2">
+        <span class="step-title step-title-without-slide"><i class="fa fa-user fa-2x"></i> About Me</span>
+        <ul>
+            <li>10 years &lt;dev/&gt;</li>
+            <li>Working for ThoughtWorks. We are looking for awesome devs -- ranganab@thoughtworks.com</li>
+            <li>Big data technologies maniac</li>
+            <li>Had two startups before</li>
+            <li>Organizer of <a href="http://www.meetup.com/hyderabad-scalability/">Hyderabad Scalability Meetup</a></li>
+        </ul>
+    </div>
+
+    <div class="step white-text" data-x="0" data-y="4500" data-scale="4" data-z="-100">
+        <span class="step-title step-title-without-slide"><i class="fa fa-list fa-1x"></i> Agenda</span>
+        <ul>
+            <li>First part <a href="http://www.openscalability.com/p/kafka-GIDS/kafka.html">Kafka</a></li>
+            <li>Stream processing</li>
+            <li>Why Storm?</li>
+            <li>Storm, Storm, Storm, and more Storm</li>
+            <li>Application - Top N tweets from Kafka</li>
+        </ul>
+    </div>
+
+    <div id="s2" class="step slide" data-x="-500" data-y="-1500">
+        <span class="step-title"> Streaming process<i class="fa fa-ellipsis-h"></i>ing</span>
+        <blockquote style="font-size:0.8em">"process big volume unbound sequence of tuples in realtime."</blockquote>
+        <ul>
+            <li>Batch (logs, bulk image edits)</li>
+            <li>Stream (trading, fraud detection, system monitoring)</li>
+            <li>Micro batch (a sequence of small batches, e.g: interact with external systems like elastic search, HBase, etc for performance)</li>
+        </ul>
+        <img src="images/stream.png" class="img-max-width"/>
+    </div>
+
+    <div class="step slide" data-x="1000" data-y="-1500">
+        <span class="step-title"> Lambda Architecture</span>
+        <img src="images/lambda-architecture.png" class="img-max-width center"/><br/>
+        <span class="source-link">img source: https://www.mapr.com/sites/default/files/otherpageimages/lambda-architecture-2-800.jpg</span>
+    </div>
+
+    <div class="step slide" data-x="2500" data-y="-1500">
+        <span class="step-title">Problems with queues and workers</span>
+        <img src="images/queue_problems.png" class="img-max-width center" style="max-width:50%;position:relative;"/><br/>
+        <br/>
+        <ul>
+            <li>Consumers additional responsibility</li>
+            <li>Worker failures</li>
+            <li>Data processing guarantees</li>
+            <li>Intermediate queues</li>
+            <li>No processing abstraction</li>
+            <li>Tough horizontal scalability</li>
+        </ul>
+        <span class="source-link">img source: http://www.parsely.com/misc/slides/logs/notes/_images/queue_storage.png</span>
+    </div>
+
+    <div class="step slide" data-x="4000" data-y="-1500">
+        <span class="step-title"><i class="fa fa-bolt  faa-ring animated"></i> Storm</span>
+        <p><i><b>distributed, real-time, computational framework for processing unbounded streams of data.</b></i></p>
+        <br/>
+        <img src="images/storm.png" class="img-max-width center" style="max-width:80%"/>
+        <span class="source-link">img source: http://www.business-software.com/wp-content/uploads/2014/09/Storm.png</span>
+    </div>
+
+    <div class="step slide" data-x="5500" data-y="-1500">
+        <span class="step-title"><i class="fa fa-bolt  faa-ring animated"></i> Storm</span>
+        <ul>
+            <li><i><b>fast</b></i> - 1M+ messages per sec per node</li>
+            <li><i><b>scalable</b></i> - thousands of nodes per cluster</li>
+            <li><i><b>fault-tolerant</b></i> - failure is expected and embraced</li>
+            <li><i><b>reliable</b></i> - guaranteed message delivery {exactly once semantics}. Replay failed messages.</li>
+            <li><i><b>easy setup</b></i> - try installing Apache Hadoop</li>
+        </ul>
+        <br/>
+        <p>distributed, real-time, computational framework for processing unbounded streams of data.</p>
+    </div>
+
+    <div class="step slide" data-x="7000" data-y="-1500">
+        <span class="step-title">Storm Vs Hadoop, Spark</span>
+        <ul>
+            <li><i><b>Storm</b></i> = one at a time / micro batch (trident)</li>
+            <li><i><b>Map-Reduce</b></i> = Batch Processing</li>
+            <li><i><b>YARN</b></i> - Storm integrates </li>
+            <li><i><b>Spark</b></i> - streaming is micro-batching</li>
+        </ul>
+        <br/>
+        <p class="slide-explanation-center">"use right tools for the right job"</p>
+        <img src="images/right-tool.jpg" class="img-max-width center" style="max-width:40%"/>
+        <span class="source-link">img source: https://shinetechblog.files.wordpress.com/2014/01/big_hilti.jpg</span>
+    </div>
+
+    <div class="step white-text" data-x="7000" data-y="2100" data-rotate="180" data-scale="6">
+        <img src="images/storm_logo.png" style="width: 20%;display: block;" />
+        <span class="step-title step-title-without-slide"> Storm Concepts</span>
+    </div>
+
+    <div class="step slide" data-x="8500" data-y="-1500">
+        <span class="step-title step-title-center">Tuple</span>
+        <br/>
+        <p style="text-align:center;"><i class="fa fa-file-code-o fa-5x"></i></p>
+        <p class="slide-definition-center">core unit of data</p>
+    </div>
+
+    <div class="step slide" data-x="10000" data-y="-1500">
+        <span class="step-title step-title-center">Stream</span>
+        <br/>
+        <p style="text-align:center;"><i class="fa fa-ellipsis-h fa-2x"></i><i class="fa fa-file-code-o faa-passing animated fa-3x"></i> <i class="fa fa-ellipsis-h fa-2x"></i>
+            <i class="fa fa-file-code-o faa-passing animated fa-3x"></i> <i class="fa fa-ellipsis-h fa-2x"></i>
+            <i class="fa fa-file-code-o faa-passing animated fa-3x"></i> <i class="fa fa-ellipsis-h fa-2x"></i>
+            <i class="fa fa-file-code-o faa-passing animated fa-3x"></i> <i class="fa fa-ellipsis-h fa-2x"></i> </p>
+        <p class="slide-definition-center">unbounded sequence of tuples</p>
+    </div>
+
+    <div class="step slide" data-x="11500" data-y="-1500">
+        <span class="step-title step-title-center">Spouts</span>
+        <br/>
+        <img src="images/spout.png" style="width: 20%;float: left;" />
+        <p style="text-align:center;"><i class="fa fa-ellipsis-h fa-2x"></i><i class="fa fa-file-code-o faa-passing animated fa-3x"></i> <i class="fa fa-ellipsis-h fa-2x"></i>
+            <i class="fa fa-file-code-o faa-passing animated fa-3x"></i> <i class="fa fa-ellipsis-h fa-2x"></i>
+            <i class="fa fa-file-code-o faa-passing animated fa-3x"></i> <i class="fa fa-ellipsis-h fa-2x"></i></p>
+        <p style="text-align:center;"><i class="fa fa-ellipsis-h fa-2x"></i><i class="fa fa-file-code-o faa-passing animated fa-3x"></i> <i class="fa fa-ellipsis-h fa-2x"></i>
+            <i class="fa fa-file-code-o faa-passing animated fa-3x"></i> <i class="fa fa-ellipsis-h fa-2x"></i>
+            <i class="fa fa-file-code-o faa-passing animated fa-3x"></i> <i class="fa fa-ellipsis-h fa-2x"></i></p>
+        <p class="slide-definition-center">source of a stream</p>
+        <br/>
+        <p class="slide-explanation-center">normally read data from an external data source and emit tuples</p>
+    </div>
+
+    <div class="step slide" data-x="13000" data-y="-1500">
+        <span class="step-title step-title-center">Bolts</span>
+        <br/>
+        <span style="padding-left:50px;float: left;"><i class="fa fa-bolt  faa-ring animated fa-5x"></i></span>
+        <p style="text-align:center;"><i class="fa fa-ellipsis-h fa-2x"></i><i class="fa fa-file-code-o faa-passing animated fa-3x"></i> <i class="fa fa-ellipsis-h fa-2x"></i>
+            <i class="fa fa-file-code-o faa-passing animated fa-3x"></i> <i class="fa fa-ellipsis-h fa-2x"></i>
+            <i class="fa fa-file-code-o faa-passing animated fa-3x"></i> <i class="fa fa-ellipsis-h fa-2x"></i></p>
+        <p style="text-align:center;"><i class="fa fa-ellipsis-h fa-2x"></i><i class="fa fa-file-code-o faa-passing animated fa-3x"></i> <i class="fa fa-ellipsis-h fa-2x"></i>
+            <i class="fa fa-file-code-o faa-passing animated fa-3x"></i> <i class="fa fa-ellipsis-h fa-2x"></i>
+            <i class="fa fa-file-code-o faa-passing animated fa-3x"></i> <i class="fa fa-ellipsis-h fa-2x"></i></p>
+        <p class="slide-definition-center">process,transform, or compute </p>
+        <br/>
+        <p class="slide-explanation-center">optionally emit tuples</p>
+    </div>
+
+    <div class="step slide" data-x="14500" data-y="-1500">
+        <span class="step-title step-title-center">Topology</span>
+        <img src="images/strom_topology.png" class="img-max-width center" style="max-width:60%"/>
+
+        <p class="slide-definition-center">DAG with nodes and edges</p>
+        <br/>
+        <p class="slide-explanation-center">
+            <ul style="font-size: 0.7em">
+                <li>DAG of spouts and bolts</li>
+                <li><i><b>Nodes:</b></i> represent some individual computations - bolts/spouts</li>
+                <li><i><b>Edges:</b></i> represent the data being passed between nodes - streams</li>
+            </ul>
+        </p>
+        <span class="source-link">source: http://www.business-software.com</span>
+    </div>
+
+    <div class="step slide" data-x="16000" data-y="-1500">
+        <span class="step-title">Stream grouping</span>
+        <p>"how tuples are sent between spouts,bolts"</p>
+        <br/>
+        <ul>
+            <li><i><b>Shuffle grouping</b></i> - randomized round robin</li>
+            <li><i><b>Fields grouping</b></i> - Same tuples to same task</li>
+            <li><i><b>Global grouping</b></i> - All tuples to same bolt</li>
+            <li><i><b>All grouping</b></i></li>
+            <li>Local or shuffle grouping - Shuffle grouping with local worker tasks</li>
+            <li>Partial Key grouping</li>
+            <li>None grouping</li>
+            <li>Local or shuffle grouping</li>
+        </ul>
+    </div>
+
+    <div class="step white-text" data-x="8500" data-y="6000" data-rotate="180" data-scale="6">
+        <img src="images/storm_logo.png" style="width: 20%;display: block;" />
+        <span class="step-title step-title-without-slide"> Physical Concepts</span>
+    </div>
+
+    <div class="step slide" data-x="17500" data-y="-1500">
+        <span class="step-title step-title-center">Nimbus</span>
+        <p style="text-align:center;">
+            <span class="fa-stack fa-lg fa-5x">
+              <i class="fa fa-circle-o fa-stack-2x "></i>
+              <i class="fa fa-cog fa-spin fa-stack-1x"></i>
+            </span>
+        </p>
+        <p class="slide-definition-center">Master daemon process</p>
+        <br/>
+        <div class="from-top">
+            <ul style="font-size: 0.7em;">
+                <li>distributing code</li>
+                <li>assigning tasks</li>
+                <li>monitoring failures</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="step slide" data-x="19000" data-y="-1500">
+        <span class="step-title step-title-center">Supervisors</span>
+        <p style="text-align:center;">
+            <span class="fa-stack fa-lg fa-3x">
+              <i class="fa fa-square-o fa-stack-2x "></i>
+              <i class="fa fa-circle-o-notch fa-spin fa-stack-1x"></i>
+            </span>
+            <span class="fa-stack fa-lg fa-3x">
+              <i class="fa fa-square-o fa-stack-2x "></i>
+              <i class="fa fa-circle-o-notch fa-spin fa-stack-1x"></i>
+            </span>
+            <span class="fa-stack fa-lg fa-3x">
+              <i class="fa fa-square-o fa-stack-2x "></i>
+              <i class="fa fa-circle-o-notch fa-spin fa-stack-1x"></i>
+            </span>
+        </p>
+        <p style="text-align:center;">
+            <i class="fa fa-ellipsis-v faa-bounce animated fa-3x"></i>
+        </p>
+        <p style="text-align:center;">
+            <span class="fa-stack fa-lg fa-3x">
+              <i class="fa fa-circle-o fa-stack-2x "></i>
+              <i class="fa fa-cog fa-spin fa-stack-1x"></i>
+            </span>
+        </p>
+        <p class="slide-definition-center">Worker daemon process</p>
+    </div>
+
+    <div class="step slide" data-x="21500" data-y="-1500">
+        <span class="step-title step-title-center">Zookeeper</span>
+        <p style="text-align:center;">
+            <span class="fa-stack fa-lg fa-1x">
+              <i class="fa fa-square-o fa-stack-2x "></i>
+              <i class="fa fa-circle-o-notch fa-spin fa-stack-1x"></i>
+            </span>
+            <span class="fa-stack fa-lg fa-1x">
+              <i class="fa fa-square-o fa-stack-2x "></i>
+              <i class="fa fa-circle-o-notch fa-spin fa-stack-1x"></i>
+            </span>
+            <span class="fa-stack fa-lg fa-1x">
+              <i class="fa fa-square-o fa-stack-2x "></i>
+              <i class="fa fa-circle-o-notch fa-spin fa-stack-1x"></i>
+            </span>
+            <span class="fa-stack fa-lg fa-1x">
+              <i class="fa fa-square-o fa-stack-2x "></i>
+              <i class="fa fa-circle-o-notch fa-spin fa-stack-1x"></i>
+            </span>
+            <span class="fa-stack fa-lg fa-1x">
+              <i class="fa fa-square-o fa-stack-2x "></i>
+              <i class="fa fa-circle-o-notch fa-spin fa-stack-1x"></i>
+            </span>
+        </p>
+        <p style="text-align:center;">
+            <i class="fa fa-ellipsis-v faa-bounce animated fa-1x"></i>
+        </p>
+        <p style="text-align:center;">
+            <span class="fa-stack fa-lg fa-1x">
+              <i class="fa fa-square-o fa-stack-2x "></i>
+              <i class="fa fa-user-secret fa-stack-1x"></i>
+            </span>
+            <span class="fa-stack fa-lg fa-1x">
+              <i class="fa fa-square-o fa-stack-2x "></i>
+              <i class="fa fa-user-secret fa-stack-1x"></i>
+            </span>
+            <span class="fa-stack fa-lg fa-1x">
+              <i class="fa fa-square-o fa-stack-2x "></i>
+              <i class="fa fa-user-secret fa-stack-1x"></i>
+            </span>
+        </p>
+        <p style="text-align:center;">
+            <i class="fa fa-ellipsis-v faa-bounce animated fa-1x"></i>
+        </p>
+        <p style="text-align:center;">
+            <span class="fa-stack fa-lg fa-2x">
+              <i class="fa fa-circle-o fa-stack-2x "></i>
+              <i class="fa fa-cog fa-spin fa-stack-1x"></i>
+            </span>
+        </p>
+        <p class="slide-definition-center">Stores cluster operational state</p>
+    </div>
+
+    <div class="step slide" data-x="23000" data-y="-1500">
+        <span class="step-title step-title-center">Physical View</span>
+        <img src="images/strom_physical_view.png" class="img-max-width center"/>
+        <span class="source-link">source: http://image.slidesharecdn.com/loggly-what-we-learned-scaling-storm-140825175614-phpapp01/95/what-we-learned-about-scaling-with-apache-storm-pushing-the-performance-envelope-11-638.jpg?cb=1408990694</span>
+    </div>
+
+    <div class="step slide" data-x="24500" data-y="-1500">
+        <span class="step-title">Getting the job done</span>
+        <ul>
+            <li>TopologySubmitter uploads topology (jar and config) to Nimbus</li>
+            <li>Nimbus calculates assignments and sends to Zookeeper</li>
+            <li>Supervisors receive assignment info via zookeeper watchers</li>
+            <li>Supervisors download topology from Nimbus</li>
+            <li>Supervisors spawn Workers (JVM processes) </li>
+            <li>Workers heartbeat back to Supervisors(locally) and Nimbus (via zookeeper)</li>
+        </ul>
+        <span class="source-link">detail: http://storm.apache.org/documentation/Lifecycle-of-a-topology.html</span>
+    </div>
+
+    <div class="step slide" data-x="26000" data-y="-1500">
+        <span class="step-title">Fault Tolerance</span>
+        <ul>
+            <li>Worker dies -- Supervisor restarts it</li>
+            <li>Worker dies repeatedly -- Nimbus reassigns work to other node</li>
+            <li>Supervisor dies -- Nimbus reassigns work to other node</li>
+            <li>Nimbus dies -- No reassignments</li>
+        </ul>
+    </div>
+
+    <div class="step slide" data-x="27500" data-y="-1500">
+        <span class="step-title">Parallelism</span>
+        <div class="div-center">
+            <img src="images/parallelism1.png"/>
+        </div>
+        <p class="slide-definition-center">1 worker, parallelism = 1</p>
+    </div>
+
+    <div class="step slide" data-x="29000" data-y="-1500">
+        <span class="step-title">Parallelism</span>
+        <div class="div-center">
+            <img src="images/parallelism2.png"/>
+        </div>
+        <p class="slide-explanation-center">1 worker,2 executors (threads), parallelism = 2</p>
+    </div>
+
+    <div class="step slide" data-x="31500" data-y="-1500">
+        <span class="step-title">Parallelism</span>
+        <div class="div-center">
+            <img src="images/parallelism3.png"/>
+        </div>
+        <p class="slide-explanation-center">1 worker,1 executors (threads), 3 tasks, parallelism = 3</p>
+    </div>
+
+    <div class="step slide" data-x="33000" data-y="-1500">
+        <span class="step-title">Parallelism</span>
+        <div class="div-center">
+            <img src="images/parallelism5.png" class="img-max-width" style="max-height:500px"/>
+        </div>
+        <p class="slide-explanation-center">2 workers,2 executors (threads), 4 tasks, parallelism = ?</p>
+    </div>
+
+    <div class="step slide" data-x="34500" data-y="-1500">
+        <span class="step-title">Reliable processing</span>
+        <ul>
+            <li>Bolts can acknowledge if tuple is processed.</li>
+            <li>Bolts can fail a tuple to trigger spout to replay the original.</li>
+        </ul>
+    </div>
+
+    <div class="step slide" data-x="36000" data-y="-1500">
+        <span class="step-title">Trident</span>
+        <ul>
+            <li>Fluent, stream oriented API (like PIG)</li>
+            <li>User defined functions</li>
+        </ul>
+        <br/><br/>
+        <img src="images/trident_code.png" class="img-max-width"/>
+    </div>
+
+    <div id="one-more-thing" class="step white-text" data-x="6000" data-y="4000" data-scale="2">
+        <p>one more thing...</p>
+    </div>
+
+    <div id="its-in-3d" class="step white-text" data-x="6200" data-y="4300" data-z="-100" data-rotate-x="-40" data-rotate-y="10" data-scale="2">
+        <p><span class="have">our</span> <span class="you">application</span> <span class="noticed">Architecture</span> <span class="its">and</span> <span class="in">demo</span></p>
+    </div>
+
+    <div class="step slide" data-x="37500" data-y="-1500">
+        <span class="step-title">Real-Time Trending Twitter Topics </span>
+        <img src="images/demo-application.png" class="img-max-width"/>
+    </div>
+
+    <div class="step white-text" data-x="6500" data-y="5000" data-scale="2">
+        <span class="step-title step-title-without-slide">Thank you...</span>
+        <span>Twitter : @ran_than</span>
+        <span>http://openscalability.com</span>
+    </div>
+
+
+    <div id="end-slide" class="step" data-x="3000" data-y="1500" data-scale="10">
+    </div>
+
+</div>
+
+<script src="../common/js/impress.js"></script>
+<script>
+(function() {
+    impress().init();
+})();
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-62149149-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>
